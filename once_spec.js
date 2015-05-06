@@ -8,7 +8,7 @@ describe("once",function() {
       return i += 1;
     }
 
-    addOnce = once(add1);
+    var addOnce = once(add1);
 
     addOnce();
     addOnce();
@@ -24,7 +24,7 @@ describe("once",function() {
       return i;
     }
 
-    addOnce = once(add1);
+    var addOnce = once(add1);
 
     assert.equal(addOnce(),1);
     assert.equal(addOnce(),1);
@@ -37,9 +37,26 @@ describe("once",function() {
       return;
     }
 
-    blahOnce = once(blah);
+    var blahOnce = once(blah);
 
     assert.equal(blahOnce(),undefined);
+  });
+
+  it("should not invoke computation unless the returned function is invoked",function() {
+    var i = 0;
+    function add1() {
+      i += 1;
+      return i;
+    }
+
+    once(add1);
+    var addOnce = once(add1);
+
+    assert.equal(i,0);
+    addOnce();
+    assert.equal(i,1);
+
+
   });
 
 
