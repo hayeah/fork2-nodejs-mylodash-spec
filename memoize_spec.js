@@ -20,6 +20,8 @@ describe("memoize",function() {
     assert.equal(i,2);
 
     assert.equal(memoizedIdentity(1),1);
+    assert.equal(memoizedIdentity(2),2);
+    assert.equal(i,2);
   });
 
   it("should use cache_key argument to calculate cache key",function() {
