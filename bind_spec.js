@@ -37,5 +37,23 @@ describe("bind", function() {
     assert.deepEqual(returnBar(), [bar, []]);
     assert.deepEqual(returnBar(1, 2, 3), [bar, [1, 2, 3]]);
   });
+
+  it("handles partial application", function() {
+    function returnThisAndArgs() {
+      return [this, [].slice.call(arguments, 0)];
+    }
+
+    const foo = { name: "foo" };
+    const bar = { name: "bar" };
+
+    const returnFoo = _.bind(returnThisAndArgs, foo, 1, 2);
+    const returnBar = _.bind(returnThisAndArgs, bar, 1, 2);
+
+    assert.deepEqual(returnFoo(), [foo, [1, 2]]);
+    assert.deepEqual(returnFoo(3, 4), [foo, [1, 2, 3, 4]]);
+
+    assert.deepEqual(returnBar(), [bar, [1, 2]]);
+    assert.deepEqual(returnBar(3, 4), [bar, [1, 2, 3, 4]]);
+  });
 });
 
