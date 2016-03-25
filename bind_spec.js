@@ -1,21 +1,25 @@
-var assert = require("chai").assert;
+"use strict";
 
-var _ = require("..");
+const assert = require("chai").assert;
 
-describe("bind",function() {
-  it("should force this to be a context object",function() {
+const _ = require("..");
+
+describe("bind", function() {
+  it("should force this to be a context object", function() {
     function returnThis() {
       return this;
     }
 
-    var foo = {name: "foo"};
-    var bar = {name: "bar"};
+    const foo = { name: "foo" };
+    const bar = { name: "bar" };
 
-    var returnFoo = _.bind(returnThis,foo);
-    var returnBar = _.bind(returnThis,bar);
+    const returnFoo = _.bind(returnThis, foo);
+    const returnBar = _.bind(returnThis, bar);
 
-    assert.deepEqual(returnFoo(),foo);
-    assert.deepEqual(returnBar(),bar);
+    assert.equal(returnFoo(), foo);
+    assert.equal(returnBar(), bar);
   });
+
+
 });
 
