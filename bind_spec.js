@@ -20,6 +20,22 @@ describe("bind", function() {
     assert.equal(returnBar(), bar);
   });
 
+  it("should pass in arguments", function() {
+    function returnThisAndArgs() {
+      return [this, [].slice.call(arguments, 0)];
+    }
 
+    const foo = { name: "foo" };
+    const bar = { name: "bar" };
+
+    const returnFoo = _.bind(returnThisAndArgs, foo);
+    const returnBar = _.bind(returnThisAndArgs, bar);
+
+    assert.deepEqual(returnFoo(), [foo, []]);
+    assert.deepEqual(returnFoo(1, 2, 3), [foo, [1, 2, 3]]);
+
+    assert.deepEqual(returnBar(), [bar, []]);
+    assert.deepEqual(returnBar(1, 2, 3), [bar, [1, 2, 3]]);
+  });
 });
 
